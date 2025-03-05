@@ -3,9 +3,12 @@ import React from 'react';
 import Link from 'next/link';
 import SocialLoggedIn from '../SocialLoggedIn/SocialLoggedIn';
 import { signIn } from "next-auth/react";
+import { useRouter } from 'next/navigation';
 
 
 const LoggedInForm = () => {
+
+    const router = useRouter();
 
     const handleSignIn = async (e) => {
         e.preventDefault();
@@ -15,11 +18,19 @@ const LoggedInForm = () => {
             const form = e.target;
             const email = form.email.value;
             const password = form.password.value;
-            await signIn("credentials", { email, password, callbackUrl: '/' })
+            const response = await signIn("credentials", { email, password, callbackUrl: '/', redirect: false })
 
+            if (response.ok) {
+                alert("Successfully Logged In");
+                e.target.reset();
+                router.push('/')
+            } else {
+                alert("Faild Authentication")
+            }
+
+            // console.log(response)
         } catch (error) {
             alert("Faild Authentication")
-            return null;
         }
 
 

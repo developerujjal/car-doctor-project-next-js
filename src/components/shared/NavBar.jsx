@@ -1,5 +1,5 @@
 'use client'
-// import { signIn, signOut, useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -7,7 +7,7 @@ import { useState } from "react";
 
 const NavBar = () => {
 
-    // const session = useSession();
+    const session = useSession();
     // console.log(session)
     const [openToggle, setOpenTOggle] = useState(false)
 
@@ -18,16 +18,16 @@ const NavBar = () => {
                     <Link href={'/'} className="flex items-center space-x-3 rtl:space-x-reverse">
                         <Image src={'/assets/logo.svg'} width={70} height={70} alt="Logo" />
                     </Link>
-{/* 
+
                     <div className={`flex md:order-2 ${session?.status === 'authenticated' ? "block gap-3" : "block"} space-x-3 md:space-x-0 rtl:space-x-reverse`}>
                         <button type="button" className={`text-[#FF3811] border border-[#FF3811] focus:ring-1 focus:outline-none focus:ring-[#FF3811] font-medium rounded text-sm px-4 py-2.5 text-center font-inter mr-4`}>Appointment</button>
 
                         {
 
                             session?.status === 'authenticated' ? <>
-                                <button onClick={() => signOut()} type="button" className={`text-[#FF3811] border border-[#FF3811] focus:ring-1 focus:outline-none focus:ring-[#FF3811] font-medium rounded text-sm px-4 py-2.5 text-center font-inter`}>Sign Out</button>
+                                <button onClick={() => signOut()} type="button" className={`text-[#FF3811] border border-[#FF3811] focus:ring-1 focus:outline-none focus:ring-[#FF3811] font-medium rounded text-sm px-4 py-2.5 text-center font-inter cursor-pointer`}>Sign Out</button>
                             </> : <>
-                                <button onClick={() => signIn()} type="button" className={`text-[#FF3811] border border-[#FF3811] focus:ring-1 focus:outline-none focus:ring-[#FF3811] font-medium rounded text-sm px-4 py-2.5 text-center font-inter`}>Sign In</button>
+                                <Link type="button" href={'/singin'} className={`text-[#FF3811] border border-[#FF3811] focus:ring-1 focus:outline-none focus:ring-[#FF3811] font-medium rounded text-sm px-4 py-2.5 text-center font-inter cursor-pointer`}>Sign In</Link>
                             </>
                         }
 
@@ -38,14 +38,14 @@ const NavBar = () => {
                                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15" />
                             </svg>
                         </button>
-                    </div> */}
+                    </div>
 
                     <nav className={`${openToggle ? "bolck" : "hidden"} items-center justify-between w-full md:flex md:w-auto md:order-1" id="navbar-sticky`}>
                         <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
                             <li>
                                 <Link href={'/'} className="block py-2 px-3 rounded md:bg-transparent md:text-[#FF3811] md:p-0" aria-current="page">Home</Link>
                             </li>
-{/*                             
+                            {/*                             
                             <li>
                                 <Link href={'/about'} className="block py-2 px-3 text-[#444444] rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-[#FF3811] md:p-0">About</Link>
                             </li>
