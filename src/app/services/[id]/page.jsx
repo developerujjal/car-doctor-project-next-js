@@ -7,7 +7,7 @@ const DetailsPage = async ({ params }) => {
     const { id } = await params;
     const dbCollection = dbConnect(DbCollectionObj.serviceCollection);
     const service = await dbCollection.findOne({ _id: new ObjectId(id) });
-    console.log(service)
+    // console.log(service)
 
 
     return (
