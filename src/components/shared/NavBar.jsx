@@ -27,7 +27,7 @@ const NavBar = () => {
                             session?.status === 'authenticated' ? <>
                                 <button onClick={() => signOut()} type="button" className={`text-[#FF3811] border border-[#FF3811] focus:ring-1 focus:outline-none focus:ring-[#FF3811] font-medium rounded text-sm px-4 py-2.5 text-center font-inter cursor-pointer`}>Sign Out</button>
                             </> : <>
-                                <Link type="button" href={'/singin'} className={`text-[#FF3811] border border-[#FF3811] focus:ring-1 focus:outline-none focus:ring-[#FF3811] font-medium rounded text-sm px-4 py-2.5 text-center font-inter cursor-pointer`}>Sign In</Link>
+                                <Link type="button" href={'/signin'} className={`text-[#FF3811] border border-[#FF3811] focus:ring-1 focus:outline-none focus:ring-[#FF3811] font-medium rounded text-sm px-4 py-2.5 text-center font-inter cursor-pointer`}>Sign In</Link>
                             </>
                         }
 

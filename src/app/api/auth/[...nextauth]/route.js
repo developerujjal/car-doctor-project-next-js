@@ -1,6 +1,7 @@
-import { loginUser } from "@/app/actions/auth/loginUser"
-import NextAuth from "next-auth"
-import CredentialsProvider from "next-auth/providers/credentials"
+import { loginUser } from "@/app/actions/auth/loginUser";
+import NextAuth from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 
 
 export const authOptions = {
@@ -33,11 +34,27 @@ export const authOptions = {
                     // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
                 }
             }
+        }),
+        GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+            authorization: {
+                params: {
+                    prompt: "consent",
+                    access_type: "online",
+                    response_type: "code"
+                }
+            }
         })
     ],
 
     pages: {
         signIn: "/signin"
+    },
+    callbacks: {
+        async signIn({ user, account, profile, email, credentials }) {
+            return true
+        },
     }
 
 }
