@@ -1,29 +1,36 @@
 'use client'
 
-import { signIn } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FaFacebookF, FaLinkedinIn } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
 
 const SocialLoggedIn = () => {
 
     const router = useRouter();
+    const session = useSession();
+    console.log(session)
 
     const handleSocialLogged = async (provider) => {
         try {
             await signIn(provider, { redirect: false, callbackUrl: '/' })
-            // console.log(response)
-            // if(response.ok){
-            //     router.push('/')
-            // }
 
         } catch (error) {
             alert("Authentication Faild from error")
             console.log(error)
         }
-
     }
+
+
+    useEffect(() => {
+        if (session?.status === 'authenticated') {
+            router.push('/');
+            alert("Successfully Logged in")
+
+        }
+    }, [session?.status])
+
 
     return (
         <div className="flex gap-x-2 justify-center">
