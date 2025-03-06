@@ -1,7 +1,7 @@
 import { loginUser } from "@/app/actions/auth/loginUser";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
-import dbConnect, { DbCollectionObj } from "./dbConnect";
+import dbConnect, { dbCollectionObj } from "./dbConnect";
 
 
 export const authOptions = {
@@ -61,7 +61,7 @@ export const authOptions = {
                     const { provider, providerAccountId } = account;
                     const { name, email, image } = user;
 
-                    const usersCollection = dbConnect(DbCollectionObj.usersCollection);
+                    const usersCollection = dbConnect(dbCollectionObj.usersCollection);
                     const isExist = await usersCollection.findOne({ providerAccountId });
 
                     if (!isExist) {

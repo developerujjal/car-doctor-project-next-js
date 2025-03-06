@@ -1,8 +1,9 @@
 const { MongoClient, ServerApiVersion } = require("mongodb");
 
-export const DbCollectionObj = {
+export const dbCollectionObj = {
     serviceCollection: "services",
-    usersCollection: "users"
+    usersCollection: "users",
+    bookingsCollection: "bookings"
 }
 
 export default function dbConnect(collectionName) {

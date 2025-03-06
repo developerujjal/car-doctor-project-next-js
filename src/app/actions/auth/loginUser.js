@@ -1,5 +1,5 @@
 'use server'
-import dbConnect, { DbCollectionObj } from "@/lib/dbConnect";
+import { dbCollectionObj } from "@/lib/dbConnect";
 import bcrypt from "bcrypt";
 
 export async function loginUser(payload) {
@@ -13,7 +13,7 @@ export async function loginUser(payload) {
         }
 
         const query = { email: email }
-        const usersCollection = dbConnect(DbCollectionObj.usersCollection);
+        const usersCollection = dbConnect(dbCollectionObj.usersCollection);
         const user = await usersCollection.findOne(query);
         if (!user) {
             return null;

@@ -1,5 +1,5 @@
 'use server'
-import dbConnect, { DbCollectionObj } from "@/lib/dbConnect"
+import dbConnect, { dbCollectionObj } from "@/lib/dbConnect"
 import bcrypt from "bcrypt";
 
 export async function RegisterUser(user) {
@@ -14,7 +14,7 @@ export async function RegisterUser(user) {
     const hashedPassword = bcrypt.hashSync(password, 10);
     user.password = hashedPassword;
 
-    const dbCollection = dbConnect(DbCollectionObj.usersCollection);
+    const dbCollection = dbConnect(dbCollectionObj.usersCollection);
     const isExsit = await dbCollection.findOne({ email: user?.email });
     if (!isExsit) {
         const result = await dbCollection.insertOne(user);

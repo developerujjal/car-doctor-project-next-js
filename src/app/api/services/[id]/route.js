@@ -1,11 +1,11 @@
-import dbConnect, { DbCollectionObj } from "@/lib/dbConnect";
+import dbConnect, { dbCollectionObj } from "@/lib/dbConnect";
 import { ObjectId } from "mongodb";
 import { NextResponse } from "next/server";
 
 export async function GET(request, { params }) {
     try {
         const { id } = await params;
-        const servicesCollection = dbConnect(DbCollectionObj.serviceCollection);
+        const servicesCollection = dbConnect(dbCollectionObj.serviceCollection);
         const query = { _id: new ObjectId(id) };
         const result = await servicesCollection.findOne(query);
         return NextResponse.json(result)
