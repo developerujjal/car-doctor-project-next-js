@@ -8,13 +8,34 @@ const BookingPage = () => {
 
     useEffect(() => {
         const fetchMyBookings = async () => {
-            const response = await fetch('http://localhost:3000/api/services/checkout');
+            const response = await fetch(`${process.env.NEXT_PUBLIC_AUTH_URL}/api/services/checkout`);
             const data = await response.json();
             setServices(data);
         }
 
         fetchMyBookings();
     }, [])
+
+
+    const handleDelete = async (id) => {
+        try {
+            // console.log(id)
+            const response = await fetch(`${process.env.NEXT_PUBLIC_AUTH_URL}/api/services/${id}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+            const data = await response.json();
+            console.log(data)
+            if (data?.deletedCount > 0) {
+                alert("Delete Successfully")
+            }
+
+        } catch (error) {
+            alert("Faild to Delete")
+        }
+    }
 
 
     console.log(services)
@@ -42,11 +63,12 @@ const BookingPage = () => {
                         </thead>
 
                         <tbody className="whitespace-nowrap">
-                            {
-                                services?.map(order => <OrderTableRow
-                                    key={order._id}
-                                    service={order}
-                                />)
+                            {services?.map(order => <OrderTableRow
+                                key={order._id}
+                                service={order}
+                                handleDelete={handleDelete}
+                            />)
+
                             }
                         </tbody>
                     </table>

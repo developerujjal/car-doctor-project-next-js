@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import React from 'react';
 
-const OrderTableRow = ({service}) => {
+const OrderTableRow = ({service, handleDelete}) => {
+
 
     return (
         <tr className="odd:bg-blue-50">
@@ -16,7 +17,7 @@ const OrderTableRow = ({service}) => {
             </td>
             <td className="p-4 flex items-center gap-2">
                 <button
-                    // onClick={() => handleDelete(service?._id)}
+                    onClick={() => handleDelete(service?._id)}
                     className="mr-4" title="Delete">
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-5 fill-red-500 hover:fill-red-700" viewBox="0 0 24 24">
                         <path
