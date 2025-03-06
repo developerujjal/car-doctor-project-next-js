@@ -1,14 +1,18 @@
-import dbConnect, { DbCollectionObj } from '@/lib/dbConnect';
-import { ObjectId } from 'mongodb';
+// import dbConnect, { DbCollectionObj } from '@/lib/dbConnect';
+// import { ObjectId } from 'mongodb';
 import Link from 'next/link';
 import React from 'react';
 
 const DetailsPage = async ({ params }) => {
     const { id } = await params;
-    const dbCollection = dbConnect(DbCollectionObj.serviceCollection);
-    const service = await dbCollection.findOne({ _id: new ObjectId(id) });
-    // console.log(service)
+    // const dbCollection = dbConnect(DbCollectionObj.serviceCollection);
+    // const service = await dbCollection.findOne({ _id: new ObjectId(id) });
+    // // console.log(service)
 
+    const response = await fetch(`${process.env.NEXTAUTH_PUBLIC_URL}/api/services/${id}`);
+    const service = await response.json();
+
+    // console.log(service)
 
     return (
         <div className="bg-gray-100 font-sans">
