@@ -2,12 +2,14 @@
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 
 const NavBar = () => {
 
     const session = useSession();
+    const pathName = usePathname();
     // console.log(session)
     const [openToggle, setOpenTOggle] = useState(false)
 
@@ -43,12 +45,13 @@ const NavBar = () => {
                     <nav className={`${openToggle ? "bolck" : "hidden"} items-center justify-between w-full md:flex md:w-auto md:order-1" id="navbar-sticky`}>
                         <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
                             <li>
-                                <Link href={'/'} className="block py-2 px-3 rounded md:bg-transparent md:text-[#FF3811] md:p-0" aria-current="page">Home</Link>
+                                <Link href={'/'} className={`${pathName === '/' ? 'text-[#FF3811]' : 'text-[#444444]'} block py-2 px-3 rounded md:bg-transparent md:p-0`} aria-current="page">Home</Link>
+                            </li>
+                            <li>
+                                <Link href={'/my-bookings'} className={`${pathName === '/my-bookings' ? 'text-[#FF3811]' : 'text-[#444444]'} block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-[#FF3811] md:p-0`}>My Bookings</Link>
                             </li>
                             {/*                             
-                            <li>
-                                <Link href={'/about'} className="block py-2 px-3 text-[#444444] rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-[#FF3811] md:p-0">About</Link>
-                            </li>
+                            
                             <li>
                                 <Link href={'/services'} className="block py-2 px-3 text-[#444444] rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-[#FF3811] md:p-0">Services</Link>
                             </li>

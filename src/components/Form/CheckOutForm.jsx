@@ -16,9 +16,10 @@ const CheckOutForm = ({ service }) => {
             const payLoad = {
                 name: session?.data?.user?.name,
                 email: session?.data?.user?.email,
-                title: service?.title,
+                service_name: service?.title,
                 price: service?.price,
                 date: e.target.date.value,
+                service_id: service?._id,
                 message: e.target.message.value
 
             }
