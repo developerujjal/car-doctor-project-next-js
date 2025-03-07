@@ -9,7 +9,7 @@ const DetailsPage = async ({ params }) => {
     // const service = await dbCollection.findOne({ _id: new ObjectId(id) });
     // // console.log(service)
 
-    const response = await fetch(`${process.env.NEXTAUTH_URL}/api/services/${id}`);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_AUTH_URL}/api/services/${id}`);
     const service = await response.json();
 
     // console.log(service)

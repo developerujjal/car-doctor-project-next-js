@@ -2,6 +2,7 @@ import { authOptions } from "@/lib/authOptions";
 import dbConnect, { dbCollectionObj } from "@/lib/dbConnect";
 import { ObjectId } from "mongodb";
 import { getServerSession } from "next-auth";
+import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
 export async function GET(request, { params }) {
@@ -33,11 +34,12 @@ export async function DELETE(request, { params }) {
         const isEmailOk = session?.user?.email === isBookingExist?.email;
 
         if (!isEmailOk) {
-            return NextResponse.json({ message: "Forbidden Access", status: 403 })
+            return NextResponse.json({ message: "Forbidden Access", status: 403 });
         }
 
-        const result = await bookingsCollection.deleteOne(query)
-        return NextResponse.json(result)
+        const result = await bookingsCollection.deleteOne(query);
+        revalidatePath("/my-bookings");
+        return NextResponse.json(result);
 
 
     } catch (error) {

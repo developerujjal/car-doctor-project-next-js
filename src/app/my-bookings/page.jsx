@@ -1,44 +1,35 @@
-"use client"
 import OrderTableRow from '@/components/OrderTableRow/OrderTableRow';
-import React, { useEffect, useState } from 'react';
-
-const BookingPage = () => {
-
-    const [services, setServices] = useState([])
-
-    useEffect(() => {
-        const fetchMyBookings = async () => {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_AUTH_URL}/api/services/checkout`);
-            const data = await response.json();
-            setServices(data);
-        }
-
-        fetchMyBookings();
-    }, [])
+import { headers } from 'next/headers';
+import React from 'react';
 
 
-    const handleDelete = async (id) => {
-        try {
-            // console.log(id)
-            const response = await fetch(`${process.env.NEXT_PUBLIC_AUTH_URL}/api/services/${id}`, {
-                method: "DELETE",
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            });
-            const data = await response.json();
-            console.log(data)
-            if (data?.deletedCount > 0) {
-                alert("Delete Successfully")
+const fetchMyBookings = async () => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_AUTH_URL}/api/services/checkout`, {
+        headers: headers()
+    });
+    const data = await response.json();
+    return data;
+}
+
+const BookingPage = async () => {
+    /* 
+        const [services, setServices] = useState([])
+    
+        useEffect(() => {
+            const fetchMyBookings = async () => {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_AUTH_URL}/api/services/checkout`);
+                const data = await response.json();
+                setServices(data);
             }
+    
+            fetchMyBookings();
+        }, [])
+    
+     */
 
-        } catch (error) {
-            alert("Faild to Delete")
-        }
-    }
+    const services = await fetchMyBookings();
 
 
-    console.log(services)
 
     return (
         <section>
@@ -66,7 +57,6 @@ const BookingPage = () => {
                             {services?.map(order => <OrderTableRow
                                 key={order._id}
                                 service={order}
-                                handleDelete={handleDelete}
                             />)
 
                             }

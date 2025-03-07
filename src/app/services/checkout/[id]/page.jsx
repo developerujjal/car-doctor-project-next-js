@@ -4,7 +4,7 @@ import React from 'react';
 const CheckoutPage = async ({ params }) => {
 
     const { id } = await params;
-    const response = await fetch(`${process.env.NEXTAUTH_URL}//api/services/${id}`);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_AUTH_URL}//api/services/${id}`);
     const service = await response.json();
 
     console.log(id)
