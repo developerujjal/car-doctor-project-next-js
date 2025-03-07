@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 export async function middleware(req) {
     // console.log("FROM MIDDELWARE: ", request.nextUrl.pathname)
-    const token = await getToken({ req });
+    const token = await getToken({ req, secureCookie: process.env.NODE_ENV === "production" ? true : false });
     if (!token) {
         return NextResponse.redirect(new URL("/signin", req.url))
     }

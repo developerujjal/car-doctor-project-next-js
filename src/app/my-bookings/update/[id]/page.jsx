@@ -6,7 +6,7 @@ const UpdatePage = async ({ params }) => {
 
     const { id } = await params;
     const response = await fetch(`${process.env.NEXT_PUBLIC_AUTH_URL}/api/my-bookings/update/${id}`, {
-        headers: await headers()
+        headers: new Headers(await headers())
     });
     const booking = await response.json();
 
