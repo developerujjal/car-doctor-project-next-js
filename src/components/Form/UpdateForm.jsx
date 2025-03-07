@@ -1,12 +1,14 @@
 "use client"
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 
 const UpdateForm = ({ service }) => {
 
     const session = useSession();
+    const router = useRouter();
 
-    const handleConfirmOrder = (e) => {
+    const handleUpdateBooking = async (e) => {
         e.preventDefault();
         try {
             const updateDoc = {
@@ -14,7 +16,21 @@ const UpdateForm = ({ service }) => {
                 mesage: e.target.message.value
             }
 
-            console.log(updateDoc)
+
+            const response = await fetch(`${process.env.NEXT_PUBLIC_AUTH_URL}/api/my-bookings/update/${service?._id}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(updateDoc)
+            });
+            const data = await response.json();
+
+            if(data?.modifiedCount > 0){
+                alert("Successfully Updated");
+                router.push('/my-bookings')
+            }
+            // console.log(data)
 
         } catch (error) {
             alert("faild to update")
@@ -23,7 +39,7 @@ const UpdateForm = ({ service }) => {
 
     return (
         <form
-            onSubmit={handleConfirmOrder}
+            onSubmit={handleUpdateBooking}
             className="space-y-6">
             <div className="flex gap-4">
                 <input

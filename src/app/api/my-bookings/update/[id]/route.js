@@ -14,3 +14,23 @@ export const GET = async (request, { params }) => {
         return NextResponse.json({ message: "Faild to fetch booking data", status: 500 })
     }
 }
+
+
+export const PATCH = async (request, { params }) => {
+    try {
+        const { id } = await params;
+        const body = await request.json();
+        const filter = { _id: new ObjectId(id) };
+        const updateDoc = {
+            $set: {
+                ...body
+            }
+        }
+        const bookingsCollection = dbConnect(dbCollectionObj.bookingsCollection);
+        const result = await bookingsCollection.updateOne(filter, updateDoc);
+        return NextResponse.json(result)
+
+    } catch (error) {
+        return NextResponse.json({ message: "Faild to Update", status: 500 })
+    }
+}

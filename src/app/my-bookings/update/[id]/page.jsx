@@ -7,7 +7,7 @@ const UpdatePage = async ({ params }) => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_AUTH_URL}/api/my-bookings/update/${id}`);
     const booking = await response.json();
 
-    console.log(booking)
+    // console.log(booking)
 
 
     return (

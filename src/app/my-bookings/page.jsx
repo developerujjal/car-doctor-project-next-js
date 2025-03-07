@@ -42,6 +42,9 @@ const BookingPage = async () => {
                                     Services
                                 </th>
                                 <th className="p-4 text-left text-sm font-semibold text-black">
+                                    Des
+                                </th>
+                                <th className="p-4 text-left text-sm font-semibold text-black">
                                     Deadline
                                 </th>
                                 <th className="p-4 text-left text-sm font-semibold text-black">

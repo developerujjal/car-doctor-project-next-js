@@ -10,6 +10,9 @@ const OrderTableRow = ({ service }) => {
                 {service?.service_name}
             </td>
             <td className="p-4 text-sm">
+                {service?.mesage}
+            </td>
+            <td className="p-4 text-sm">
                 {new Date(service?.date).toLocaleDateString()}
             </td>
             <td className="p-4 text-sm">
