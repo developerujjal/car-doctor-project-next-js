@@ -11,7 +11,7 @@ export const GET = async (request) => {
         if (!session) {
             return NextResponse.json({ message: "Unauthorize Access", status: 401 })
         }
-        
+
         const query = { email: session?.user?.email };
         const bookingsCollection = dbConnect(dbCollectionObj.bookingsCollection);
         const result = await bookingsCollection.find(query).toArray();
@@ -26,10 +26,12 @@ export const GET = async (request) => {
 
 
 export async function POST(request) {
+
     try {
         const body = await request.json();
         console.log(body)
         const bookingsCollection = dbConnect(dbCollectionObj.bookingsCollection);
+
         const result = await bookingsCollection.insertOne(body);
         return NextResponse.json(result)
 

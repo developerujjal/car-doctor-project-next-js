@@ -5,7 +5,7 @@ import React from 'react';
 
 const fetchMyBookings = async () => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_AUTH_URL}/api/services/checkout`, {
-        headers: headers()
+        headers: await headers()
     });
     const data = await response.json();
     return data;

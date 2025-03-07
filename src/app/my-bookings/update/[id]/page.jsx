@@ -1,10 +1,13 @@
 import UpdateForm from '@/components/Form/UpdateForm';
+import { headers } from 'next/headers';
 import React from 'react';
 
 const UpdatePage = async ({ params }) => {
 
     const { id } = await params;
-    const response = await fetch(`${process.env.NEXT_PUBLIC_AUTH_URL}/api/my-bookings/update/${id}`);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_AUTH_URL}/api/my-bookings/update/${id}`, {
+        headers: await headers()
+    });
     const booking = await response.json();
 
     // console.log(booking)
